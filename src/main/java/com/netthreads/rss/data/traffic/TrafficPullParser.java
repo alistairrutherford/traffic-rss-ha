@@ -1,35 +1,41 @@
 /**
  * -----------------------------------------------------------------------
- * Copyright 2013 - Alistair Rutherford - www.netthreads.co.uk
+ * Copyright 2015 - Alistair Rutherford - www.netthreads.co.uk
  * -----------------------------------------------------------------------
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.netthreads.rss.data.traffic;
 
 import com.netthreads.rss.PullParser;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 /**
  * This is a _simple_ XML Pull parser for RSS xml feed.
- * 
+ *
  * Type: RSS Data
- * 
+ *
  * Sample URL:
- * 
+ *
  */
 public class TrafficPullParser implements PullParser<TrafficData>
 {
+	private static final String DEFAULT_SEVERITY = "minor";
+	
 	// In tag
 	private boolean inCategoryClass = false;
 	private boolean inRoad = false;
@@ -44,6 +50,7 @@ public class TrafficPullParser implements PullParser<TrafficData>
 
 	// Record values.
 	private String itemCategoryClass;
+	private String itemSeverity;
 	private String itemRoad;
 	private String itemRegion;
 	private String itemCounty;
@@ -54,9 +61,19 @@ public class TrafficPullParser implements PullParser<TrafficData>
 	private String itemEventStart;
 	private String itemEventEnd;
 
+	private static final Map<String, String> severityMap = new HashMap<String, String>()
+	{
+		{
+			put("minor", "minor");
+			put("no delay", "minor");
+			put("moderate", "moderate");
+			put("severe", "severe");
+		}
+	};
+
 	/**
 	 * Process start tag
-	 * 
+	 *
 	 * @param tag
 	 */
 	@Override
@@ -108,7 +125,7 @@ public class TrafficPullParser implements PullParser<TrafficData>
 
 	/**
 	 * Process start tag
-	 * 
+	 *
 	 * @param tag
 	 */
 	@Override
@@ -161,7 +178,7 @@ public class TrafficPullParser implements PullParser<TrafficData>
 
 	/**
 	 * Collect text values depending on conditions.
-	 * 
+	 *
 	 * @param text
 	 */
 	@Override
@@ -177,7 +194,16 @@ public class TrafficPullParser implements PullParser<TrafficData>
 		}
 		else if (inCategoryClass)
 		{
-			itemCategoryClass = text;
+			String severity = hasSeverity(text);
+
+			if (severity != null & !severity.isEmpty())
+			{
+				itemSeverity = severity;
+			}
+			else
+			{
+				itemCategoryClass = text;
+			}
 		}
 		else if (inCounty)
 		{
@@ -212,13 +238,14 @@ public class TrafficPullParser implements PullParser<TrafficData>
 
 	/**
 	 * Build record from parsed data.
-	 * 
+	 *
 	 */
 	@Override
 	public void populateRecord(TrafficData record)
 	{
 		// Populate record.
 		record.setCategoryClass(itemCategoryClass);
+		record.setSeverity(itemSeverity);
 		record.setRoad(itemRoad);
 		record.setRegion(itemRegion);
 		record.setCounty(itemCounty);
@@ -235,12 +262,13 @@ public class TrafficPullParser implements PullParser<TrafficData>
 
 	/**
 	 * Reset parsed strings.
-	 * 
+	 *
 	 */
 	@Override
 	public void reset()
 	{
 		itemCategoryClass = "";
+		itemSeverity = DEFAULT_SEVERITY;
 		itemRoad = "";
 		itemRegion = "";
 		itemCounty = "";
@@ -253,8 +281,36 @@ public class TrafficPullParser implements PullParser<TrafficData>
 	}
 
 	/**
+	 * Extract severity - if possible.
+	 *
+	 * @param text
+	 *
+	 * @return text which matches severity signature
+	 */
+	private String hasSeverity(String text)
+	{
+		String severity = "";
+		boolean found = false;
+		Iterator<String> iterator = severityMap.keySet().iterator();
+		while (iterator.hasNext() && !found)
+		{
+			String key = iterator.next();
+
+			int index = text.toLowerCase().indexOf(key);
+			if (index >= 0)
+			{
+				String keyVal = text.substring(index, key.length());
+				severity = severityMap.get(keyVal.toLowerCase());
+				found = true;
+			}
+		}
+
+		return severity;
+	}
+
+	/**
 	 * Inside text
-	 * 
+	 *
 	 * @return
 	 */
 	@Override

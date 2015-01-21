@@ -1,6 +1,6 @@
 /**
  * -----------------------------------------------------------------------
- * Copyright 2013 - Alistair Rutherford - www.netthreads.co.uk
+ * Copyright 2015 - Alistair Rutherford - www.netthreads.co.uk
  * -----------------------------------------------------------------------
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
