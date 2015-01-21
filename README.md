@@ -3,9 +3,9 @@ traffic-rss-ha
 
 RSS Pull Parser for UK Highways Agency RSS traffic incident feed.
 
-This is suitable for Android.
+This uses my netthreads-rss-pullparser library here https://github.com/alistairrutherford/netthreads-rss-pullparser
 
-The advantages of a pull parser are that it is fast and can be cancelled during processing unlike like SAX and DOM parsers.
+The advantages of a pull parser are that it is fast and can be cancelled during mid parse.
 
 
 License
