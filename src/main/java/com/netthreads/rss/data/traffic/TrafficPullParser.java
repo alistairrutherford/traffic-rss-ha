@@ -47,7 +47,7 @@ public class TrafficPullParser implements PullParser<TrafficData>
 	private boolean inOverAllEnd = false;
 	private boolean inEventStart = false;
 	private boolean inEventEnd = false;
-
+	
 	// Record values.
 	private String itemCategoryClass;
 	private String itemSeverity;
@@ -60,7 +60,7 @@ public class TrafficPullParser implements PullParser<TrafficData>
 	private String itemOverallEnd;
 	private String itemEventStart;
 	private String itemEventEnd;
-
+	
 	private static final Map<String, String> severityMap = new HashMap<String, String>()
 	{
 		{
@@ -70,7 +70,7 @@ public class TrafficPullParser implements PullParser<TrafficData>
 			put("severe", "severe");
 		}
 	};
-
+	
 	/**
 	 * Process start tag
 	 *
@@ -119,10 +119,10 @@ public class TrafficPullParser implements PullParser<TrafficData>
 		{
 			inOverAllEnd = true;
 		}
-
+		
 		return false;
 	}
-
+	
 	/**
 	 * Process start tag
 	 *
@@ -131,7 +131,7 @@ public class TrafficPullParser implements PullParser<TrafficData>
 	@Override
 	public boolean processEndTag(String tag)
 	{
-
+		
 		if (tag.equals(TrafficData.TEXT_ROAD))
 		{
 			inRoad = false;
@@ -172,10 +172,10 @@ public class TrafficPullParser implements PullParser<TrafficData>
 		{
 			inOverAllEnd = false;
 		}
-
+		
 		return false;
 	}
-
+	
 	/**
 	 * Collect text values depending on conditions.
 	 *
@@ -195,7 +195,7 @@ public class TrafficPullParser implements PullParser<TrafficData>
 		else if (inCategoryClass)
 		{
 			String severity = hasSeverity(text);
-
+			
 			if (severity != null & !severity.isEmpty())
 			{
 				itemSeverity = severity;
@@ -233,9 +233,9 @@ public class TrafficPullParser implements PullParser<TrafficData>
 		{
 			itemOverallEnd = text;
 		}
-
+		
 	}
-
+	
 	/**
 	 * Build record from parsed data.
 	 *
@@ -255,11 +255,11 @@ public class TrafficPullParser implements PullParser<TrafficData>
 		record.setOverAllEnd(itemOverallEnd);
 		record.setEventStart(itemEventStart);
 		record.setEventEnd(itemEventEnd);
-
+		
 		// Reset parser fields.
 		reset();
 	}
-
+	
 	/**
 	 * Reset parsed strings.
 	 *
@@ -279,7 +279,7 @@ public class TrafficPullParser implements PullParser<TrafficData>
 		itemEventStart = "";
 		itemEventEnd = "";
 	}
-
+	
 	/**
 	 * Extract severity - if possible.
 	 *
@@ -295,7 +295,7 @@ public class TrafficPullParser implements PullParser<TrafficData>
 		while (iterator.hasNext() && !found)
 		{
 			String key = iterator.next();
-
+			
 			int index = text.toLowerCase().indexOf(key);
 			if (index >= 0)
 			{
@@ -304,10 +304,10 @@ public class TrafficPullParser implements PullParser<TrafficData>
 				found = true;
 			}
 		}
-
+		
 		return severity;
 	}
-
+	
 	/**
 	 * Inside text
 	 *
@@ -318,5 +318,5 @@ public class TrafficPullParser implements PullParser<TrafficData>
 	{
 		return inCategoryClass || inRoad || inRegion || inCounty || inLatitude || inLongitude || inOverAllStart || inOverAllEnd || inEventStart || inEventEnd;
 	}
-
+	
 }
