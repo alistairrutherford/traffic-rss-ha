@@ -40,6 +40,7 @@ public class TrafficData extends RssData
 	public static final String TEXT_EVENT_END = "eventEnd";
 	public static final String TEXT_DIRECTION = "direction";
 	
+	private String category;
 	private String categoryClass;
 	private String severity;
 	private String road;
@@ -52,6 +53,16 @@ public class TrafficData extends RssData
 	private String eventStart;
 	private String eventEnd;
 	private String direction;
+	
+	public String getCategory()
+	{
+		return category;
+	}
+	
+	public void setCategory(String category)
+	{
+		this.category = category;
+	}
 	
 	public String getCategoryClass()
 	{

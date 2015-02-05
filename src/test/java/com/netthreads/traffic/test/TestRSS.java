@@ -106,20 +106,20 @@ public class TestRSS
 				for (TrafficData trafficData : list)
 				{
 					System.out.println("----------------------------------------------------------------------");
-					System.out.println(TrafficData.TEXT_TITLE+ ":" + trafficData.getTitle());
-					System.out.println(TrafficData.TEXT_ROAD + ":" + trafficData.getRoad());
+//					System.out.println(TrafficData.TEXT_TITLE+ ":" + trafficData.getTitle());
+//					System.out.println(TrafficData.TEXT_ROAD + ":" + trafficData.getRoad());
 					System.out.println(TrafficData.TEXT_CATEGORY + ":" + trafficData.getCategoryClass());
-					System.out.println(TrafficData.TEXT_SEVERITY + ":" + trafficData.getSeverity());
-					System.out.println(TrafficData.TEXT_REGION + ":" + trafficData.getRegion());
-					System.out.println(TrafficData.TEXT_COUNTY + ":" + trafficData.getCounty());
-					System.out.println(TrafficData.TEXT_LATITUDE + ":" + trafficData.getLatitude());
-					System.out.println(TrafficData.TEXT_LONGITUDE + ":" + trafficData.getLongitude());
-					System.out.println(TrafficData.TEXT_OVERALL_START + ":" + trafficData.getOverAllStart());
-					System.out.println(TrafficData.TEXT_OVERALL_END + ":" + trafficData.getOverAllEnd());
-					System.out.println(TrafficData.TEXT_EVENT_START + ":" + trafficData.getEventStart());
-					System.out.println(TrafficData.TEXT_EVENT_END + ":" + trafficData.getEventEnd());
-					System.out.println(TrafficData.TEXT_DIRECTION + ":" + trafficData.getDirection());
-					System.out.println(TrafficData.TEXT_DESCRIPTION+ ":" + trafficData.getDescription());
+//					System.out.println(TrafficData.TEXT_SEVERITY + ":" + trafficData.getSeverity());
+//					System.out.println(TrafficData.TEXT_REGION + ":" + trafficData.getRegion());
+//					System.out.println(TrafficData.TEXT_COUNTY + ":" + trafficData.getCounty());
+//					System.out.println(TrafficData.TEXT_LATITUDE + ":" + trafficData.getLatitude());
+//					System.out.println(TrafficData.TEXT_LONGITUDE + ":" + trafficData.getLongitude());
+//					System.out.println(TrafficData.TEXT_OVERALL_START + ":" + trafficData.getOverAllStart());
+//					System.out.println(TrafficData.TEXT_OVERALL_END + ":" + trafficData.getOverAllEnd());
+//					System.out.println(TrafficData.TEXT_EVENT_START + ":" + trafficData.getEventStart());
+//					System.out.println(TrafficData.TEXT_EVENT_END + ":" + trafficData.getEventEnd());
+//					System.out.println(TrafficData.TEXT_DIRECTION + ":" + trafficData.getDirection());
+//					System.out.println(TrafficData.TEXT_DESCRIPTION+ ":" + trafficData.getDescription());
 					
 				}
 			}

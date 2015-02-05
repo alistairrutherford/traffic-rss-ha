@@ -49,7 +49,7 @@ public class TrafficPullParser implements PullParser<TrafficData>
 	private boolean inEventEnd = false;
 	
 	// Record values.
-	private String itemCategoryClass;
+	private String itemCategory;
 	private String itemSeverity;
 	private String itemRoad;
 	private String itemRegion;
@@ -68,6 +68,17 @@ public class TrafficPullParser implements PullParser<TrafficData>
 			put("no delay", "minor");
 			put("moderate", "moderate");
 			put("severe", "severe");
+		}
+	};
+	
+	private static final Map<String, String> categoryClassMap = new HashMap<String, String>()
+	{
+		{
+			put("roadworks", "roadworks");
+			put("resurfacing", "roadworks");
+			put("bridge or barrier repairs", "roadworks");
+			put("sports event", "incident");
+			put("major event", "incident");
 		}
 	};
 	
@@ -202,7 +213,7 @@ public class TrafficPullParser implements PullParser<TrafficData>
 			}
 			else
 			{
-				itemCategoryClass = text;
+				itemCategory = text;
 			}
 		}
 		else if (inCounty)
@@ -244,7 +255,7 @@ public class TrafficPullParser implements PullParser<TrafficData>
 	public void populateRecord(TrafficData record)
 	{
 		// Populate record.
-		record.setCategoryClass(itemCategoryClass);
+		record.setCategory(itemCategory);
 		record.setSeverity(itemSeverity);
 		record.setRoad(itemRoad);
 		record.setRegion(itemRegion);
@@ -255,6 +266,13 @@ public class TrafficPullParser implements PullParser<TrafficData>
 		record.setOverAllEnd(itemOverallEnd);
 		record.setEventStart(itemEventStart);
 		record.setEventEnd(itemEventEnd);
+		
+		String categoryClass = categoryClassMap.get(itemCategory);
+		if (categoryClass == null)
+		{
+			categoryClass = "unknown";
+		}
+		record.setCategoryClass(categoryClass);
 		
 		// Reset parser fields.
 		reset();
@@ -267,7 +285,7 @@ public class TrafficPullParser implements PullParser<TrafficData>
 	@Override
 	public void reset()
 	{
-		itemCategoryClass = "";
+		itemCategory = "";
 		itemSeverity = DEFAULT_SEVERITY;
 		itemRoad = "";
 		itemRegion = "";
