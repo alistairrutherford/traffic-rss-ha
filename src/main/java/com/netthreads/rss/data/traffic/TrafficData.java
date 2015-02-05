@@ -214,6 +214,6 @@ public class TrafficData extends RssData
 	@Override
 	public String toString()
 	{
-		return super.toString() + ", " + categoryClass + ", " + road + ", " + region + ", " + county + ", " + latitude + ", " + longitude + ", " + overAllStart + ", " + overAllEnd + ", " + eventStart + ", " + eventEnd + ", " + severity;
+		return super.toString() + ", " + category + ", " + categoryClass + ", " + road + ", " + region + ", " + county + ", " + latitude + ", " + longitude + ", " + overAllStart + ", " + overAllEnd + ", " + eventStart + ", " + eventEnd + ", " + severity;
 	}
 }

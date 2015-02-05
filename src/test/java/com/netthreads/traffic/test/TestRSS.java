@@ -22,8 +22,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.xmlpull.v1.XmlPullParserException;
@@ -85,6 +87,8 @@ public class TestRSS
 		rssStreamParser.addParser(new RssPullParser());
 		rssStreamParser.addParser(new TrafficPullParser());
 		
+		Map<String, String> map = new HashMap<String, String>();
+		
 		for (OpmlData opmlData : opmlDataList)
 		{
 			try
@@ -101,14 +105,16 @@ public class TestRSS
 				
 				rssStreamParser.fetch(entityStream, list, trafficDataFactory);
 				
-				org.junit.Assert.assertTrue(list.size() > 0);
+				//org.junit.Assert.assertTrue(list.size() > 0);
 				
 				for (TrafficData trafficData : list)
 				{
-					System.out.println("----------------------------------------------------------------------");
+					map.put(trafficData.getCategory().trim(), trafficData.getCategory().trim());
+					
+//					System.out.println("----------------------------------------------------------------------");
 //					System.out.println(TrafficData.TEXT_TITLE+ ":" + trafficData.getTitle());
 //					System.out.println(TrafficData.TEXT_ROAD + ":" + trafficData.getRoad());
-					System.out.println(TrafficData.TEXT_CATEGORY + ":" + trafficData.getCategoryClass());
+//					System.out.println(TrafficData.TEXT_CATEGORY + ":" + trafficData.getCategoryClass());
 //					System.out.println(TrafficData.TEXT_SEVERITY + ":" + trafficData.getSeverity());
 //					System.out.println(TrafficData.TEXT_REGION + ":" + trafficData.getRegion());
 //					System.out.println(TrafficData.TEXT_COUNTY + ":" + trafficData.getCounty());
@@ -122,12 +128,19 @@ public class TestRSS
 //					System.out.println(TrafficData.TEXT_DESCRIPTION+ ":" + trafficData.getDescription());
 					
 				}
+				
 			}
 			catch (IOException e)
 			{
 				org.junit.Assert.assertTrue(false);
 			}
 		}
+		
+		for (String key : map.keySet())
+		{
+			System.out.println(key);
+		}
+		
 	}
 	
 }

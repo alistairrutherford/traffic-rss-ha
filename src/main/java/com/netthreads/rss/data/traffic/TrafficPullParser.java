@@ -78,7 +78,12 @@ public class TrafficPullParser implements PullParser<TrafficData>
 			put("resurfacing", "roadworks");
 			put("bridge or barrier repairs", "roadworks");
 			put("sports event", "incident");
-			put("major event", "incident");
+			put("major event", "incident");			
+			put("accident","accident");
+			put("aerious accident","accident");
+			put("congestion","congestion");
+			put("broken down vehicle","congestion");
+			put("vehicle on fire","incident");
 		}
 	};
 	
@@ -267,7 +272,7 @@ public class TrafficPullParser implements PullParser<TrafficData>
 		record.setEventStart(itemEventStart);
 		record.setEventEnd(itemEventEnd);
 		
-		String categoryClass = categoryClassMap.get(itemCategory);
+		String categoryClass = categoryClassMap.get(itemCategory.toLowerCase().trim());
 		if (categoryClass == null)
 		{
 			categoryClass = "unknown";
