@@ -18,11 +18,11 @@
  */
 package com.netthreads.rss.data.traffic;
 
-import com.netthreads.rss.PullParser;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import com.netthreads.rss.PullParser;
 
 /**
  * This is a _simple_ XML Pull parser for RSS xml feed.
@@ -32,6 +32,7 @@ import java.util.Map;
  * Sample URL:
  *
  */
+@SuppressWarnings("serial")
 public class TrafficPullParser implements PullParser<TrafficData>
 {
 	private static final String DEFAULT_SEVERITY = "minor";
@@ -71,12 +72,12 @@ public class TrafficPullParser implements PullParser<TrafficData>
 		}
 	};
 	
-	private static final Map<String, String> categoryClassMap = new HashMap<String, String>()
+    private static final Map<String, String> categoryClassMap = new HashMap<String, String>()
 	{
 		{
-			put("roadworks", "roadworks");
-			put("resurfacing", "roadworks");
-			put("bridge or barrier repairs", "roadworks");
+			put("roadworks", "roadwork");
+			put("resurfacing", "roadwork");
+			put("bridge or barrier repairs", "roadwork");
 			put("sports event", "incident");
 			put("major event", "incident");			
 			put("accident","accident");
@@ -84,6 +85,7 @@ public class TrafficPullParser implements PullParser<TrafficData>
 			put("congestion","congestion");
 			put("broken down vehicle","congestion");
 			put("vehicle on fire","incident");
+			put("other unplanned","incident");
 		}
 	};
 	
