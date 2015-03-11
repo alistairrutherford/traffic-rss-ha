@@ -80,12 +80,12 @@ public class TrafficPullParser implements PullParser<TrafficData>
 			put("bridge or barrier repairs", "roadwork");
 			put("sports event", "incident");
 			put("major event", "incident");			
-			put("accident","accident");
-			put("aerious accident","accident");
-			put("congestion","congestion");
-			put("broken down vehicle","congestion");
 			put("vehicle on fire","incident");
 			put("other unplanned","incident");
+			put("accident","accident");
+			put("overturned vehicle", "accident");
+			put("congestion","congestion");
+			put("broken down vehicle","congestion");
 		}
 	};
 	
